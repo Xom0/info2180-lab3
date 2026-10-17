@@ -16,21 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
         [0, 4, 8],
         [2, 4, 6]
     ];
-    
-    newGameButton.addEventListener("click", function () {
-    currentPlayer = "X";
-    gameState = ["", "", "", "", "", "", "", "", ""];
-
-    squares.forEach(function (square) {
-        square.textContent = "";
-        square.classList.remove("X", "O");
-    });
-
-    status.textContent =
-        "Move your mouse over a square and click to play an X or an O.";
-
-    status.classList.remove("you-won");
-    });
 
     function checkWinner() {
         for (let combination of winningCombinations) {
@@ -61,6 +46,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         square.addEventListener("click", function () {
+            if (gameState[index] !== "") {
+                return;
+            }
+
             square.textContent = currentPlayer;
             square.classList.add(currentPlayer);
 
@@ -74,5 +63,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentPlayer = "X";
             }
         });
+    });
+
+    newGameButton.addEventListener("click", function () {
+        currentPlayer = "X";
+        gameState = ["", "", "", "", "", "", "", "", ""];
+
+        squares.forEach(function (square) {
+            square.textContent = "";
+            square.classList.remove("X", "O");
+        });
+
+        status.textContent =
+            "Move your mouse over a square and click to play an X or an O.";
+
+        status.classList.remove("you-won");
     });
 });
